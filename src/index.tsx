@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Shop from './components/Shop';
-import './index.css';
+import { HashRouter } from 'react-router-dom';
+import Shop from './components/pages/Shop';
+import './index.scss';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <HashRouter>
     <Shop />
-  </React.StrictMode>,
+  </HashRouter>,
   document.getElementById('root')
 );

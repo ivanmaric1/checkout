@@ -1,0 +1,29 @@
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font);
+  font-weight: 600;
+  color: var(--font-color);
+  &-logo {
+    height: 110px;
+  }
+
+  &-list {
+    display: flex;
+    justify-content: flex-end;
+
+    &-search-cart,
+    &-sections {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      margin: 0 1rem;
+
+      li {
+        margin: 0 1rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
