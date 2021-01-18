@@ -1,0 +1,14 @@
+.Item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+
+  img {
+    width: 110px;
+  }
+
+  &-field {
+    width: 150px;
+  }
+}
