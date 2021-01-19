@@ -9,9 +9,11 @@ interface Props {
   cart: any[];
   promotions: any;
   approvedCode: any;
+  total: any;
   setApprovedCode: any;
   promoCode: string;
-  setPromoCode: any;
+  setPromoCode: (code: string) => void;
+  setTotal: any;
   deletePromoCode: (name: string) => void;
   onAddToCart: (name: string) => void;
   onReduceFromCart: (name: string) => void;
@@ -27,18 +29,18 @@ interface Item {
 
 const Cart: React.FC<Props> = ({
   cart,
+  total,
   promotions,
   approvedCode,
   promoCode,
   setPromoCode,
+  setTotal,
   deletePromoCode,
   onAddToCart,
   onReduceFromCart,
   onRemoveFromCart,
   setApprovedCode,
 }) => {
-  const [total, setTotal] = useState('');
-
   useEffect(() => {
     calculateTotalPrice();
   });
@@ -63,8 +65,17 @@ const Cart: React.FC<Props> = ({
   const addPromoCode = () => {
     const matching = promotions.filter((item: any) => item.code === promoCode);
     if (matching) {
-      let code: any = [...approvedCode, matching[0]];
-      setApprovedCode(code);
+      if (approvedCode.length > 0) {
+        if (approvedCode[0].code !== '20%OFF') {
+          let code: any = [...approvedCode, matching[0]];
+          setApprovedCode(code);
+        } else {
+          console.log(1);
+        }
+      } else {
+        let code: any = [...approvedCode, matching[0]];
+        setApprovedCode(code);
+      }
     }
   };
 

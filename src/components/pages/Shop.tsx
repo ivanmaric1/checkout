@@ -5,7 +5,7 @@ import Menu from '../smaller components/Menu';
 import HomePage from './HomePage';
 import Cart from './Cart';
 import Checkout from './Checkout';
-import Summary from './Summary';
+import Order from './Order';
 import Footer from '../smaller components/Footer';
 import './Shop.scss';
 
@@ -19,6 +19,7 @@ interface Item {
 const Shop = () => {
   const [cart, setCart] = useState<Item[]>([]);
   const [items, setItems] = useState([]);
+  const [total, setTotal] = useState('');
   const [promotions, setPromotions] = useState('');
   const [promoCode, setPromoCode] = useState('');
   const [approvedCode, setApprovedCode] = useState([]);
@@ -116,6 +117,8 @@ const Shop = () => {
             component={() => (
               <Cart
                 cart={cart}
+                total={total}
+                setTotal={setTotal}
                 onAddToCart={onAddToCart}
                 onReduceFromCart={onReduceFromCart}
                 onRemoveFromCart={onRemoveFromCart}
@@ -137,7 +140,7 @@ const Shop = () => {
           />
 
           <Route path="/checkout" component={Checkout} />
-          <Route path="/summary" component={Summary} />
+          <Route path="/summary" component={Order} />
         </Switch>
       </div>
       <Footer />

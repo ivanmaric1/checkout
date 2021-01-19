@@ -1,8 +1,8 @@
 import React from 'react';
-import './Summary.scss';
+import './Order.scss';
 
 const Summary = () => {
-  return <div className="Summary">Summary</div>;
+  return <div className="Order">Order</div>;
 };
 
 export default Summary;
