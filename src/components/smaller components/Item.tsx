@@ -15,7 +15,11 @@ const Item: React.FC<Props> = ({ name, price, img, onAddToCart }) => {
       <img src={img} alt={`${name} image`} />
       <p className="Item-field">{name}</p>
       <p className="Item-field">{price}</p>
-      <Button variant="outlined" size="large" onClick={() => onAddToCart(name)}>
+      <Button
+        variant="outlined"
+        size="medium"
+        onClick={() => onAddToCart(name)}
+      >
         Add to cart
       </Button>
     </div>

@@ -16,7 +16,7 @@ const HomePage: React.FC<Props> = ({ onAddToCart, items }) => {
 
   return (
     <div className="HomePage">
-      <h2>Products</h2>
+      <h3>Products</h3>
       {i.map((item: any) => (
         <Item
           name={item.name}

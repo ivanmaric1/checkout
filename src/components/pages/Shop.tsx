@@ -20,6 +20,8 @@ const Shop = () => {
   const [cart, setCart] = useState<Item[]>([]);
   const [items, setItems] = useState([]);
   const [promotions, setPromotions] = useState('');
+  const [promoCode, setPromoCode] = useState('');
+  const [approvedCode, setApprovedCode] = useState([]);
   const itemsRef = fire.database().ref('/items');
   const promotionsRef = fire.database().ref('/promotions');
 
@@ -35,7 +37,12 @@ const Shop = () => {
     };
     //Download itemsa sa firebase-a i spremanje u state
     const gotPromotions = (data: any) => {
-      setPromotions(data.val());
+      const itemsFromServer: any = [];
+      const dataa = data.val();
+      Object.keys(dataa).forEach((item: any) =>
+        itemsFromServer.push(dataa[item])
+      );
+      setPromotions(itemsFromServer);
     };
     //Download promotionsa sa firebase-a i spremanje u state
     const errDataLoad = (err: any) => {
@@ -65,8 +72,8 @@ const Shop = () => {
     }
   };
 
-  //Izbaci proizvod iz košarice
-  const onRemoveFromCart = (name: string) => {
+  //Smanji količinu proizvoda iz košarice
+  const onReduceFromCart = (name: string) => {
     const existInCart: any = cart.find((item: any) => item.name === name);
     if (existInCart.quantity === 1) {
       setCart(cart.filter((item: any) => item.name !== name));
@@ -84,6 +91,21 @@ const Shop = () => {
     }
   };
 
+  //Obriši proizvod iz košarice
+  const onRemoveFromCart = (name: string) => {
+    setCart(cart.filter((item: any) => item.name !== name));
+  };
+
+  //Obriši promo code
+  const deletePromoCode = (code: string) => {
+    const matching = approvedCode.filter(
+      (item: any) => item.code !== promoCode
+    );
+    if (matching) {
+      setApprovedCode(matching);
+    }
+  };
+
   return (
     <div className="Shop">
       <div className="Shop-container">
@@ -95,7 +117,14 @@ const Shop = () => {
               <Cart
                 cart={cart}
                 onAddToCart={onAddToCart}
+                onReduceFromCart={onReduceFromCart}
                 onRemoveFromCart={onRemoveFromCart}
+                promotions={promotions}
+                approvedCode={approvedCode}
+                setApprovedCode={setApprovedCode}
+                promoCode={promoCode}
+                setPromoCode={setPromoCode}
+                deletePromoCode={deletePromoCode}
               />
             )}
           />

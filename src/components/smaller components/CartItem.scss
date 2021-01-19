@@ -1,0 +1,26 @@
+.CartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+
+  &-img {
+    width: 80px;
+  }
+  &-bigg {
+    width: 150px;
+    text-align: center;
+  }
+  &-small {
+    width: 140px;
+    text-align: center;
+  }
+  &-quantity {
+    display: flex;
+    align-items: center;
+    p {
+      margin: 0 1rem;
+    }
+  }
+}

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import CartItem from '../smaller components/CartItem';
+import Summary from '../smaller components/Summary';
+
 import './Cart.scss';
 
 interface Props {
   cart: any[];
+  promotions: any;
+  approvedCode: any;
+  setApprovedCode: any;
+  promoCode: string;
+  setPromoCode: any;
+  deletePromoCode: (name: string) => void;
   onAddToCart: (name: string) => void;
+  onReduceFromCart: (name: string) => void;
   onRemoveFromCart: (name: string) => void;
 }
 
@@ -17,85 +25,75 @@ interface Item {
   quantity?: number;
 }
 
-const Cart: React.FC<Props> = ({ cart, onAddToCart, onRemoveFromCart }) => {
-  const total =
-    cart.length > 1
-      ? cart
-          .reduce(
-            (a: any, b: any) => a.price * a.quantity + b.price * b.quantity
-          )
-          .toFixed(2)
-      : null;
-  const items = cart.map((item: any) => {
-    return (
-      <div key={item.name} className="Cart-items-item">
-        <img
-          src={item.image}
-          alt="item.name"
-          className={'Cart-items-item-bigg'}
-        />
-        <p className={'Cart-items-item-bigg'}>{item.name}</p>
-        <div className="Cart-items-item-quantity Cart-items-item-small">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => onRemoveFromCart(item.name)}
-          >
-            -
-          </Button>
-          <p>{item.quantity}</p>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={() => onAddToCart(item.name)}
-          >
-            +
-          </Button>
-        </div>
+const Cart: React.FC<Props> = ({
+  cart,
+  promotions,
+  approvedCode,
+  promoCode,
+  setPromoCode,
+  deletePromoCode,
+  onAddToCart,
+  onReduceFromCart,
+  onRemoveFromCart,
+  setApprovedCode,
+}) => {
+  const [total, setTotal] = useState('');
 
-        <p className={'Cart-items-item-small'}>
-          {(item.price * item.quantity).toFixed(2)}
-        </p>
-      </div>
-    );
+  useEffect(() => {
+    calculateTotalPrice();
   });
+
+  const calculateTotalPrice = () => {
+    let totalPrice: any =
+      cart.length === 0
+        ? 0
+        : cart.length === 1
+        ? (cart[0].price * cart[0].quantity).toFixed(2)
+        : cart.reduce((a: any, b: any) => a + b.price * b.quantity, 0);
+
+    if (approvedCode.length > 0) {
+      const find = approvedCode.find((item: any) => item.code === '20%OFF');
+      if (find) {
+        totalPrice = (totalPrice * 0.8).toFixed(2);
+      }
+    }
+    setTotal(totalPrice);
+  };
+
+  const addPromoCode = () => {
+    const matching = promotions.filter((item: any) => item.code === promoCode);
+    if (matching) {
+      let code: any = [...approvedCode, matching[0]];
+      setApprovedCode(code);
+    }
+  };
+
+  console.log(promotions);
+
   return (
     <div className="Cart">
       <div className="Cart-items">
-        {cart.length === 0 ? <h2>Cart Is Empty</h2> : <h2>Cart Items</h2>}
-        {items}
+        {cart.length === 0 ? <h3>Cart Is Empty</h3> : <h3>Cart Items</h3>}
+        {cart.map((item: any) => {
+          return (
+            <CartItem
+              item={item}
+              onReduceFromCart={onReduceFromCart}
+              onAddToCart={onAddToCart}
+              deletePromoCode={deletePromoCode}
+              onRemoveFromCart={onRemoveFromCart}
+            />
+          );
+        })}
       </div>
-
-      <div>
-        <div className="Cart-summary">
-          <h2>Summary</h2>
-          <div className="Cart-summary-total">
-            <p>Total products:</p>
-            {cart.length === 0
-              ? null
-              : cart.length > 1
-              ? total
-              : cart[0].price * cart[0].quantity}
-          </div>
-          <div className="Cart-summary-total">
-            <p>Shipping costs</p>
-            <p>Free</p>
-          </div>
-          <div className="Cart-summary-promo bold">
-            <p>Add promo code</p>
-            <TextField id="outlined-basic" label="CODE" variant="outlined" />
-          </div>
-          <div className="Cart-summary-promo-applyed"></div>
-          <div className="Cart-summary-total bold">
-            <p>Total:</p>
-            {cart.length === 0
-              ? null
-              : cart.length > 1
-              ? total
-              : cart[0].price * cart[0].quantity}
-          </div>
-        </div>
+      <div className="Summary-wrapper">
+        <Summary
+          total={total}
+          setPromoCode={setPromoCode}
+          addPromoCode={addPromoCode}
+          deletePromoCode={deletePromoCode}
+          approvedCode={approvedCode}
+        />
         <Link to="/checkout">
           <button className="Cart-checkout">CKECKOUT</button>
         </Link>
