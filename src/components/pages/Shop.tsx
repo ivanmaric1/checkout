@@ -20,9 +20,13 @@ const Shop = () => {
   const [cart, setCart] = useState<Item[]>([]);
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [adress, setAdress] = useState('');
   const [promotions, setPromotions] = useState('');
-  const [promoCode, setPromoCode] = useState('');
-  const [approvedCode, setApprovedCode] = useState([]);
+  const [numberOfItems, setNumberOfItems] = useState(0);
+  const [approvedCode, setApprovedCode] = useState<any>([]);
+  const [buyerInfo, setBuyerInfo] = useState(0);
   const itemsRef = fire.database().ref('/items');
   const promotionsRef = fire.database().ref('/promotions');
 
@@ -68,8 +72,12 @@ const Shop = () => {
             : item
         )
       );
+      let num = numberOfItems;
+      setNumberOfItems(num + 1);
     } else {
       setCart([...cart, { ...newItemInCart[0], quantity: 1 }]);
+      let num = numberOfItems;
+      setNumberOfItems(num + 1);
     }
   };
 
@@ -97,37 +105,25 @@ const Shop = () => {
     setCart(cart.filter((item: any) => item.name !== name));
   };
 
-  //Obriši promo code
-  const deletePromoCode = (code: string) => {
-    const matching = approvedCode.filter(
-      (item: any) => item.code !== promoCode
-    );
-    if (matching) {
-      setApprovedCode(matching);
-    }
-  };
-
   return (
     <div className="Shop">
       <div className="Shop-container">
-        <Menu />
+        <Menu numberOfItems={numberOfItems} />
         <Switch>
           <Route
             path="/cart"
             component={() => (
               <Cart
                 cart={cart}
-                total={total}
-                setTotal={setTotal}
                 onAddToCart={onAddToCart}
                 onReduceFromCart={onReduceFromCart}
                 onRemoveFromCart={onRemoveFromCart}
                 promotions={promotions}
+                setNumberOfItems={setNumberOfItems}
                 approvedCode={approvedCode}
                 setApprovedCode={setApprovedCode}
-                promoCode={promoCode}
-                setPromoCode={setPromoCode}
-                deletePromoCode={deletePromoCode}
+                total={total}
+                setTotal={setTotal}
               />
             )}
           />
@@ -135,12 +131,36 @@ const Shop = () => {
             exact
             path="/"
             component={() => (
-              <HomePage items={items} onAddToCart={onAddToCart} />
+              <HomePage items={items} onAddToCart={onAddToCart} cart={cart} />
             )}
           />
 
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/summary" component={Order} />
+          <Route
+            path="/checkout"
+            component={() => (
+              <Checkout
+                name={name}
+                setName={setName}
+                email={email}
+                setEmail={setEmail}
+                adress={adress}
+                setAdress={setAdress}
+              />
+            )}
+          />
+          <Route
+            path="/order"
+            component={() => (
+              <Order
+                cart={cart}
+                total={total}
+                name={name}
+                email={email}
+                adress={adress}
+                approvedCode={approvedCode}
+              />
+            )}
+          />
         </Switch>
       </div>
       <Footer />

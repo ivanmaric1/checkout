@@ -1,2 +1,138 @@
 .Order {
+  background-color: var(--light-grey);
+  font-family: var(--font);
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: 1s fadeIn;
+
+  h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  &-data {
+    display: flex;
+    flex-direction: column;
+
+    &-items {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-info {
+      display: flex;
+      justify-content: center;
+
+      &-code {
+        border: 2px solid #f50057;
+        padding: 0.5rem;
+        font-size: 0.8rem;
+        margin: 1rem;
+      }
+
+      table {
+        td {
+          width: 200px;
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+
+  &-item,
+  &-legend {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+
+    p {
+      width: 200px;
+      text-align: center;
+      margin: 0.2rem 0;
+    }
+  }
+
+  &-legend {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  &-btn {
+    width: 200px;
+    background-color: #f50057;
+    color: #fff;
+    padding: 1rem;
+    margin-top: 50px;
+    border: none;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.4s;
+
+    &:hover {
+      background-color: lighten($color: #c51230, $amount: 20%);
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 800px) {
+  .Order {
+    &-data {
+      display: flex;
+      flex-direction: column;
+
+      &-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.8rem;
+
+        table {
+          td {
+            width: 100px;
+            padding: 0.5rem;
+          }
+        }
+      }
+    }
+
+    &-item,
+    &-legend {
+      display: flex;
+      align-items: center;
+      font-size: 0.7rem;
+
+      p {
+        width: 90px;
+        text-align: center;
+        margin: 0.2rem 0;
+      }
+    }
+
+    &-legend {
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    &-btn {
+      width: 200px;
+      background-color: #f50057;
+      color: #fff;
+      padding: 1rem;
+      margin-top: 50px;
+      border: none;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.4s;
+
+      &:hover {
+        background-color: lighten($color: #c51230, $amount: 20%);
+      }
+    }
+  }
 }

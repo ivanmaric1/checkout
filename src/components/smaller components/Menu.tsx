@@ -4,7 +4,11 @@ import logo from '../../img/logo.png';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import './Menu.scss';
 
-const Menu = () => {
+interface Props {
+  numberOfItems: number;
+}
+
+const Menu: React.FC<Props> = ({ numberOfItems }) => {
   return (
     <div className="Menu">
       <Link to="/">
@@ -22,9 +26,10 @@ const Menu = () => {
         </ul>
         <ul className="Menu-list-search-cart">
           <li>Search</li>
-          <li>
+          <li className="icon">
             <Link to="/cart">
               <ShoppingCartIcon fontSize="large" />
+              <span>{numberOfItems}</span>
             </Link>
           </li>
         </ul>

@@ -10,6 +10,24 @@
   }
 
   &-field {
-    width: 150px;
+    width: 200px;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 600px) {
+  .Item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    font-size: 0.8rem;
+
+    img {
+      width: 50px;
+    }
+
+    &-field {
+      width: auto;
+    }
   }
 }

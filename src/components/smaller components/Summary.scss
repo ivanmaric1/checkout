@@ -1,0 +1,67 @@
+.Summary {
+  box-sizing: border-box;
+  background-color: var(--light-grey);
+  height: auto;
+  width: 350px;
+  justify-self: flex-end;
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+
+  .bold {
+    font-weight: 700;
+  }
+  h3 {
+    margin: 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  &-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-promo {
+    display: flex;
+    flex-direction: column;
+
+    &-form {
+      display: flex;
+      margin-bottom: 1rem;
+      button {
+        width: 50%;
+        margin-left: 1rem;
+      }
+    }
+
+    &-applyed {
+      border-bottom: 1px solid var(--border);
+
+      &-code {
+        &-box {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        p {
+          font-size: 0.9rem;
+          margin: 0;
+        }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1rem;
+      }
+      .description {
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  &-quantity {
+    color: var(--main-red);
+  }
+}

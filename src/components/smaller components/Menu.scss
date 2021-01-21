@@ -25,6 +25,19 @@
       li {
         margin: 0 1rem;
         cursor: pointer;
+        position: relative;
+      }
+
+      span {
+        background-color: #f50057;
+        color: var(--font-color);
+        padding: 0.1rem 0.2rem;
+        font-weight: 700;
+        font-size: 0.7rem;
+        border-radius: 5px;
+        position: absolute;
+        top: -10px;
+        left: 11px;
       }
     }
   }
@@ -34,6 +47,46 @@
     &:visited,
     &-active {
       color: var(--font-color);
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 400px) {
+  .Menu {
+    &-logo {
+      display: none;
+    }
+  }
+}
+@media screen and (min-width: 200px) and (max-width: 600px) {
+  .Menu {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 0.7rem;
+    color: var(--font-color);
+
+    &-logo {
+      height: 50px;
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      &-search-cart {
+        list-style: none;
+        margin-top: 1rem;
+        align-self: center;
+
+        li {
+          margin: 0 0.5rem;
+        }
+      }
     }
   }
 }

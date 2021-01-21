@@ -1,6 +1,15 @@
 .Shop {
   &-container {
-    margin: 40px 200px;
+    margin: 40px 250px;
     height: 100vh;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 600px) {
+  .Shop {
+    &-container {
+      margin: 0px;
+      height: auto;
+    }
   }
 }
